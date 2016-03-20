@@ -18,17 +18,26 @@ class SearchInput extends React.Component {
     })
     .then((response) => {
     	return _.sortBy(response.results, 'collectionName')
-    					.reduce((albums, song) => {
+    					.reduce((albums, track) => {
     						let currAlbum = albums.length ? albums[albums.length-1] : null;
-    						if(!currAlbum || currAlbum.title !== song.collectionName) {
+    						track = {
+    							title: track.trackName, 
+									number: track.trackNumber, 
+									artist: track.artistName,
+									genre: track.primaryGenreName,
+									previewUrl: track.previewUrl,
+									album: track.collectionName,
+									coverUrl: track.artworkUrl100
+								};
+    						if(!currAlbum || currAlbum.title !== track.album) {
     							albums.push({
-    								title: song.collectionName,
-    								artist: song.artistName,
-    								coverUrl: song.artworkUrl100,
-    								songs: [song]
+    								title: track.album,
+    								artist: track.artist,
+    								coverUrl: track.coverUrl,
+    								tracks: [track]
     							});
     						} else {
-    							currAlbum.songs.push(song);
+    							currAlbum.tracks.push(track);
     						}
     						return albums;
     					}, []);

@@ -51,9 +51,9 @@ class AlbumsList extends React.Component {
 							</div>
 						</a>
 						<div id={albumId} className='sublinks collapse'>
-							{album.songs.map((song, i) => {
+							{_.sortBy(album.tracks, 'number').map((track, i) => {
 								return (
-									<Song key={i} data={song} />	
+									<Track key={i} data={track} />	
 								);
 							})}
 						</div>
@@ -65,10 +65,17 @@ class AlbumsList extends React.Component {
 	}
 }
 
-class Song extends React.Component {
+class Track extends React.Component {
 	render() {
+		let {title, artist} = this.props.data;
 		return (
-			<a className="list-group-item small">saved tasks</a>
+			<span className="list-group-item small">
+				<div className="media">
+				  <div className="media-body">
+				    <h4 className="media-heading">{title}</h4>
+				  </div>
+				</div>
+			</span>
 		);
 	}
 }
