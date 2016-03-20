@@ -44,4 +44,6 @@ Rails.application.configure do
   #   optional: ["react", "stage-0", "es2015"],  # pass extra babel options
   #   whitelist: ["useStrict"] # even more options
   # }
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end
