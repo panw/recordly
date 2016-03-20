@@ -15,6 +15,7 @@ class Main extends React.Component {
     let {searchResults} = this.state;
     return (
       <div>
+      	<NavBar/>
         <SearchInput
           setResults={this.setSearchResults}
         />
