@@ -34,12 +34,11 @@ gem 'devise'
 
 gem 'react-rails', '~>1.6.2'
 gem 'bootstrap', '~> 4.0.0.alpha3'
-
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end
-
 gem 'lodash-rails', '~> 4.0'
+gem "font-awesome-rails"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
