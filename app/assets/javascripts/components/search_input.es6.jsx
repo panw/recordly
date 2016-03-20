@@ -11,13 +11,31 @@ class SearchInput extends React.Component {
     $.ajax({
       url: 'https://itunes.apple.com/search',
       data: {
-        term: term
+        term: term,
+        limit: 200
       },
       dataType: 'jsonp'
     })
-    .done((response) => {
-      console.log(response);
-      setResults(response.results);
+    .then((response) => {
+    	return _.sortBy(response.results, 'collectionName')
+    					.reduce((albums, song) => {
+    						let currAlbum = albums.length ? albums[albums.length-1] : null;
+    						if(!currAlbum || currAlbum.title !== song.collectionName) {
+    							albums.push({
+    								title: song.collectionName,
+    								artist: song.artistName,
+    								coverUrl: song.artworkUrl100,
+    								songs: [song]
+    							});
+    						} else {
+    							currAlbum.songs.push(song);
+    						}
+    						return albums;
+    					}, []);
+    })
+    .done((albums) => {
+      console.log(albums);
+      setResults(albums);
     });
   }
   render() {

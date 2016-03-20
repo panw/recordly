@@ -9,7 +9,7 @@ class NavBar extends React.Component{
           <a className="navbar-brand" href="/">Recordly</a>
           <ul className="nav navbar-nav navbar-full">
             <li className="nav-item pull-lg-right">
-              <a href='/posts/new' role="button" className="btn btn-primary-outline">Sign in / Log in</a>
+              <a href='#' role="button" className="btn btn-primary-outline">Sign Up / Sign in</a>
             </li>
             {/*
             <li className="nav-item pull-lg-left">
