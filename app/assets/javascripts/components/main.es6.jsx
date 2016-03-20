@@ -46,7 +46,10 @@ class AlbumsList extends React.Component {
 							    <img className="media-object" src={album.coverUrl}/>
 							  </span>
 							  <div className="media-body">
-							    <h4 className="media-heading">{album.title}</h4>
+							    <h4 className="media-heading">
+							    	{album.title}
+							    	<div className='small'>By {album.artist}</div>
+							    </h4>
 							  </div>
 							</div>
 						</a>
@@ -67,7 +70,7 @@ class AlbumsList extends React.Component {
 
 class Track extends React.Component {
 	render() {
-		let {title, artist} = this.props.data;
+		let {title} = this.props.data;
 		return (
 			<span className="list-group-item small">
 				<div className="media">
