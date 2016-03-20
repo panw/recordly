@@ -2,31 +2,73 @@ class Main extends React.Component {
   constructor() {
     super();
     this.state = {
-      searchResults: []
+      albums: []
     };
     this.setSearchResults = (results) => this._setSearchResults(results);
   }
-  componentDidMount() {
+  componentWillMount() {
+
   }
   _setSearchResults(results) {
-    this.setState({searchResults: results});
+    this.setState({albums: results});
   }
   render() {
-    let {searchResults} = this.state;
+    let { albums } = this.state;
+
     return (
       <div>
       	<NavBar/>
         <SearchInput
           setResults={this.setSearchResults}
         />
-        {searchResults.map((result, i) => {
-          return (
-            <Card key={i}
-              data={result}
-            />
-          );
-        })}
+        <AlbumsList albums={albums} />
       </div>
     );
   }
+}
+
+class AlbumsList extends React.Component {
+	render() {
+		let { albums } = this.props;
+		
+		if(!albums) 
+			return null;
+
+		return (
+			<div id='albums-list'>
+			{albums.map((album, i) => { 
+				let albumId = _.snakeCase(album.title);
+				return (
+					<div key={i} className="list-group-item">
+						<a href="#" data-toggle='collapse' data-target={`#${albumId}`} data-parent='#albums-list'>
+							<div className="media">
+							  <span className="media-left" href="#">
+							    <img className="media-object" src={album.coverUrl}/>
+							  </span>
+							  <div className="media-body">
+							    <h4 className="media-heading">{album.title}</h4>
+							  </div>
+							</div>
+						</a>
+						<div id={albumId} className='sublinks collapse'>
+							{album.songs.map((song, i) => {
+								return (
+									<Song key={i} data={song} />	
+								);
+							})}
+						</div>
+					</div>
+				);
+			})}
+			</div>
+		);
+	}
+}
+
+class Song extends React.Component {
+	render() {
+		return (
+			<a className="list-group-item small">saved tasks</a>
+		);
+	}
 }
