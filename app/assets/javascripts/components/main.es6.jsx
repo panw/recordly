@@ -17,7 +17,6 @@ class Main extends React.Component {
 
     return (
       <div>
-      	<NavBar/>
         <SearchInput
           setResults={this.setSearchResults}
         />
