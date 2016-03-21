@@ -91,7 +91,6 @@ class Album extends React.Component {
 				  <span className="media-right media-middle">				  	
 			  		<i className={`favorite fa ${favoriteIcon}`}
 			    		onClick={this.handleFavorited}
-			    		style={{cursor: 'pointer'}}
 			    	/>
 		    	</span>
 				</div>

@@ -2,7 +2,7 @@ class NavBar extends React.Component{
   render() {
     let { currentUser } = this.props;
     return (
-      <nav className="navbar navbar-full navbar-light" style={{backgroundColor: "#e3f2fd"}}>
+      <nav className="navbar navbar-full navbar-dark bg-primary">
         <button className="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#main-navbar">
           &#9776;
         </button>
@@ -13,10 +13,10 @@ class NavBar extends React.Component{
             {currentUser ?
               [
                 <li key={1} className="nav-item pull-lg-right">
-                  <a href='/users/sign_out' data-method="DELETE" role="button" className="btn btn-primary-outline">Sign Out</a>
+                  <a href='/users/sign_out' data-method="DELETE" role="button" className="btn btn-secondary-outline">Sign Out</a>
                 </li>, 
                 <li key={2} className="nav-item pull-lg-right">
-                  <a href='/favorites' role="button" className="btn btn-primary-outline">
+                  <a href='/favorites' role="button" className="btn btn-secondary-outline">
                     <i className='fa fa-heart-o'/> Favorites
                   </a>
                 </li>
@@ -24,7 +24,7 @@ class NavBar extends React.Component{
                   
             :
               <li className="nav-item pull-lg-right">
-                <a href='/users/sign_up' role="button" className="btn btn-primary-outline">Sign Up / Sign in</a>
+                <a href='/users/sign_up' role="button" className="btn btn-secondary-outline">Sign Up / Sign in</a>
               </li>
             }
           </ul>
