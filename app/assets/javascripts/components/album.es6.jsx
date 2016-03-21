@@ -9,7 +9,6 @@ class Album extends React.Component {
 	}
 	_handleFavorited(event) {
 		event.stopPropagation();
-		console.log(this.props.currentUser);
 		if(!this.props.currentUser) {
 			location.href = '/users/sign_in';
 			return;
@@ -41,7 +40,12 @@ class Album extends React.Component {
 						favorited_type: 'Album'
 					} 
 				}
-			}).then((favorited) => {
+			})
+			.fail((xhr, status, error) => {
+				console.log('status', status);
+				console.log('error', error);
+			})
+			.then((favorited) => {
 				console.log('favorited', favorited);
 			})
 		});
