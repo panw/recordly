@@ -27,7 +27,9 @@ class TracksController < ApplicationController
     @track = Track.find_or_initialize_by(track_params)
 
     respond_to do |format|
-      if @track.save
+      if @track.persisted? 
+        format.json { render json: @track, status: :ok }
+      elsif @track.save
         format.json { render json: @track, status: :created }
       else
         format.json { render json: @track.errors, status: :unprocessable_entity }

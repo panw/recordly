@@ -27,7 +27,9 @@ class AlbumsController < ApplicationController
     @album = Album.find_or_initialize_by(album_params)
     
     respond_to do |format|
-      if @album.save
+      if @album.persisted? 
+        format.json { render json: @album, status: :ok }
+      elsif @album.save
         format.json { render json: @album, status: :created }
       else
         format.json { render json: @album.errors, status: :unprocessable_entity }

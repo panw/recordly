@@ -8,34 +8,41 @@ class Track extends React.Component {
 	}
 	_handleFavorited(event) {
 		event.stopPropagation();
-		let { iTunesId, title, artist, coverUrl, previewUrl, iTunesAlbumId, number, genre } = this.props.data;
-		let track = {
-			iTunes_id: iTunesId,
-			title: title,
-			number: number,
-			genre: genre,
-			artist: artist,
-			cover_url: coverUrl,
-			preview_url: previewUrl
-		};
+		let { iTunesId, title, artist, 
+				coverUrl, previewUrl, iTunesAlbumId, 
+				album, number, genre } = this.props.data;
 
+		let albumParams = {
+			title: album,
+			iTunes_id: iTunesAlbumId,
+			artist: artist,
+			cover_url: coverUrl
+		};
 		$.ajax({
 			url:'/albums',
 			method: 'POST',
-			data: {
-				album: { iTunes_id: iTunesAlbumId }
-			}
+			data: { album: albumParams }
 		})
 		.fail((xhr, status, error) => {
 			console.log('status', status);
 			console.log('error', error);
 		})
 		.then((album) => {
-			console.log('album', album)
+			console.log('album', album);
+			let track = {
+				iTunes_id: iTunesId,
+				title: title,
+				number: number,
+				genre: genre,
+				artist: artist,
+				cover_url: coverUrl,
+				preview_url: previewUrl,
+				album_id: album.id
+			};
 			$.ajax({
 				url:'/tracks',
 				method: 'POST',
-				data: { track: _.merge(track, {album_id: album.id}) }
+				data: { track: track }
 			})
 			.fail((xhr, status, error) => {
 				console.log('status', status);
