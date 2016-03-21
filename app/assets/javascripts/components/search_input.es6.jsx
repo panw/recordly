@@ -8,6 +8,7 @@ class SearchInput extends React.Component {
     let term = this.refs.term.value;
     let { setResults } = this.props;
 
+    // Utilizing the iTunes API as a search engine for Albums and Tracks.
     $.ajax({
       url: 'https://itunes.apple.com/search',
       data: {
@@ -17,6 +18,8 @@ class SearchInput extends React.Component {
       dataType: 'jsonp'
     })
     .then((response) => {
+      // Data is returned as individual tracks so reduce it
+      // to albums.
     	return _.sortBy(response.results, 'collectionName')
     					.reduce((albums, track) => {
     						let currAlbum = albums.length ? albums[albums.length-1] : null;

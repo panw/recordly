@@ -7,6 +7,7 @@ class Album extends React.Component {
 		};
 		this.handleFavorited = (event) => this._handleFavorited(event);
 		this.createFavorite = (album) => this._createFavorite(album);
+		this.findFavorite = (album) => this._createFavorite(album);
 		this.deleteFavorite = (album) => this._deleteFavorite(album);
 	}
 	_handleFavorited(event) {
@@ -15,10 +16,12 @@ class Album extends React.Component {
 			location.href = '/users/sign_in';
 			return;
 		}
+
+		// If favorited album does not exist on the database yet, record it.
 		let { title, artist, coverUrl, iTunesId } = this.props.data;
 		let { favorited } = this.state;
 		let album = {
-			iTunes_id: iTunesId,
+			iTunes_id: iTunesId, // since data is fetched from iTunes API
 			title: title,
 			artist: artist,
 			cover_url: coverUrl	
@@ -33,14 +36,17 @@ class Album extends React.Component {
 			console.log('error', error);
 		})
 		.then((album) => {
+			// If an album has already been favorited and is clicked again
+			// the user is probably trying to toggle (delete the favorite).
 			let promise = favorited ? this.deleteFavorite(album) : this.createFavorite(album);
-
 			promise.done((favorite) => {
+				// Toggle state
 				this.setState({favorited: !favorited});
 			});
 		});
 	}
 	_createFavorite(album) {
+		// Function to save user's favorited album
 		let promise = $.ajax({
 			url: '/favorites',
 			method: 'POST',
@@ -59,22 +65,26 @@ class Album extends React.Component {
 		return promise;
 	}
 	_deleteFavorite(album) {
-		let deletePromise = this.createFavorite(album).done((favorite) => {
-			return $.ajax({
-				url: `/favorites/${favorite.id}`,
-				method: 'DELETE'
-			})
-			.fail((xhr, status, error) => {
-				console.log('status', status);
-				console.log('error', error);
+		// Find favorite record corresponding to the album
+		// to identify the favorite record to be deleted
+		let deletePromise = this.findFavorite(album)
+			.done((favorite) => {
+				return $.ajax({
+					url: `/favorites/${favorite.id}`,
+					method: 'DELETE'
+				})
+				.fail((xhr, status, error) => {
+					console.log('status', status);
+					console.log('error', error);
+				});
 			});
-		});
 		return deletePromise;
 	}
 	render() {
 		let { coverUrl, title, artist } = this.props.data;
 		let { favorited } = this.state;
 
+		// Determine active or inactive favorite icon to display based on state of an album
 		let favoriteIcon = favorited ? 'fa-heart' : 'fa-heart-o';
 		return (
 			<span className="list-group-item">
