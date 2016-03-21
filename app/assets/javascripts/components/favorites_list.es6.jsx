@@ -6,12 +6,12 @@ class FavoritesList extends React.Component {
 			  <div className="panel panel-default">
 			    <div className="panel-heading" role="tab">
 			      <h4 className="panel-title">
-			        <a data-toggle="collapse" data-parent="#favorites" href="#albums" aria-expanded="false">
+			        <a data-toggle="collapse" href="#albums">
 			          Albums
 			        </a>
 			      </h4>
 			    </div>
-			    <div id="albums" className="panel-collapse collapse" role="tabpanel">
+			    <div id="albums" className="panel-collapse collapse">
 			      <div className="list-group">
 						  {albums.map((album, i) => {
 						  	return (
@@ -28,7 +28,7 @@ class FavoritesList extends React.Component {
 			  <div className="panel panel-default">
 			    <div className="panel-heading" role="tab">
 			      <h4 className="panel-title">
-			        <a className="collapsed" data-toggle="collapse" data-parent="#favorites" href="#tracks" aria-expanded="true">
+			        <a className="collapsed" data-toggle="collapse" href="#tracks">
 			          Tracks
 			        </a>
 			      </h4>

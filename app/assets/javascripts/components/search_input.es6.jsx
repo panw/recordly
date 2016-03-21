@@ -51,7 +51,7 @@ class SearchInput extends React.Component {
   }
   render() {
     return (
-      <form className='form-inline' onSubmit={this.handleSubmit}>
+      <form className='form-inline' id='search-form' onSubmit={this.handleSubmit}>
         <input type='text' ref='term' className='form-control' placeholder='Enter song, album, or artist'/>
         <button type='submit' className='btn btn-primary'>Search</button>
       </form>
