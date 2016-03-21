@@ -1,10 +1,12 @@
 class Track extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
-			favorited: false
+			favorited: props.favorited
 		};
 		this.handleFavorited = (event) => this._handleFavorited(event);
+		this.createFavorite = (track) => this._createFavorite(track);
+		this.deleteFavorite = (track) => this._deleteFavorite(track);
 	}
 	_handleFavorited(event) {
 		event.stopPropagation();
@@ -32,7 +34,6 @@ class Track extends React.Component {
 			console.log('error', error);
 		})
 		.then((album) => {
-			console.log('album', album);
 			let track = {
 				iTunes_id: iTunesId,
 				title: title,
@@ -53,31 +54,56 @@ class Track extends React.Component {
 				console.log('error', error);
 			})
 			.then((track) => {
-				console.log('track', track)
-				$.ajax({
-					url: '/favorites',
-					method: 'POST',
-					data: {
-						favorite: {
-							user_id: this.props.currentUser.id,
-							favorited_id: track.id,
-							favorited_type: 'Track'
-						} 
-					}
-				}).done((favorited) => {
-					console.log('favorited track', favorited);
+				let { favorited } = this.state;
+				let promise = favorited ? this.deleteFavorite(track) : this.createFavorite(track);
+				promise.done((favorite) => {
+					this.setState({favorited: !favorited});
 				});
 			});
 		});
 	}
+	_createFavorite(track) {
+		let createPromise = $.ajax({
+			url: '/favorites',
+			method: 'POST',
+			data: { 
+				favorite: {
+					user_id: this.props.currentUser.id,
+					favorited_id: track.id,
+					favorited_type: 'Track'
+				} 
+			}
+		})
+		.fail((xhr, status, error) => {
+			console.log('status', status);
+			console.log('error', error);
+		});
+		return createPromise;
+	}
+	_deleteFavorite(track) {
+		let deletePromise = this.createFavorite(track).done((favorite) => {
+			return $.ajax({
+				url: `/favorites/${favorite.id}`,
+				method: 'DELETE'
+			})
+			.fail((xhr, status, error) => {
+				console.log('status', status);
+				console.log('error', error);
+			});
+		});
+		return deletePromise;
+	}
 	render() {
 		let {title} = this.props.data;
+		let { favorited } = this.state;
+		let favoriteIcon = favorited ? 'fa-heart' : 'fa-heart-o';
+
 		return (
 			<span href="#" className="list-group-item">
 				<div className="media">
 				  <div className="media-body">
 				    {title}
-				    <i className='fa fa-heart-o'
+				    <i className={`fa ${favoriteIcon}`}
 			    		onClick={this.handleFavorited}
 			    	/>
 				  </div>

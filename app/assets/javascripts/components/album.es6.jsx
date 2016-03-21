@@ -3,7 +3,7 @@ class Album extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			favorited: props.favorited ? true : false
+			favorited: props.favorited
 		};
 		this.handleFavorited = (event) => this._handleFavorited(event);
 		this.createFavorite = (album) => this._createFavorite(album);

@@ -11,7 +11,7 @@ class AlbumsList extends React.Component {
 					let titleLink = _.snakeCase(album.title);
 					let isFavoritedAlbum = favorites.albums.find((favAlbum) => {
 						return favAlbum.iTunes_id === album.iTunesId;
-					});
+					}) ? true : false;
 					return (
 						<div key={i} className="panel panel-default">
 			    		<div className="panel-heading" role="tab">
@@ -30,7 +30,7 @@ class AlbumsList extends React.Component {
 								{_.sortBy(album.tracks, 'number').map((track, i) => {
 									let isFavoritedTrack = favorites.tracks.find((favTrack) => {
 										return favTrack.iTunes_id === track.iTunesId;
-									});
+									}) ? true : false;
 									return (
 										<Track key={i} 
 											currentUser={this.props.currentUser}
