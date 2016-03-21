@@ -6,13 +6,13 @@ class SearchInput extends React.Component {
   _handleSubmit(e) {
     e.preventDefault();
     let term = this.refs.term.value;
-    let {setResults} = this.props;
+    let { setResults } = this.props;
 
     $.ajax({
       url: 'https://itunes.apple.com/search',
       data: {
         term: term,
-        limit: 10
+        limit: 200
       },
       dataType: 'jsonp'
     })
@@ -46,7 +46,6 @@ class SearchInput extends React.Component {
     					}, []);
     })
     .done((albums) => {
-      console.log(JSON.stringify(albums));
       setResults(albums);
     });
   }

@@ -7,8 +7,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= react_component('NavBar', {currentUser: current_user}) %>
-<%= yield %>
-
+	<%= react_component('NavBar', {currentUser: current_user}) %>
+	<div class='container'>
+		<%= yield %>
+	</div>
 </body>
 </html>

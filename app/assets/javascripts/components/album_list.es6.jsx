@@ -1,7 +1,6 @@
 class AlbumsList extends React.Component {
 	render() {
-		// let { albums } = this.props;
-		let { favorites } = this.props;
+		let { albums, favorites } = this.props;
 		if(!albums)
 			return null;
 
@@ -16,7 +15,7 @@ class AlbumsList extends React.Component {
 						<div key={i} className="panel panel-default">
 			    		<div className="panel-heading" role="tab">
 								<h4 className="panel-title">
-									<a href={`#${titleLink}`} data-toggle='collapse' data-parent='#albums-list'>
+									<a data-target={`#${titleLink}`} data-toggle='collapse'>
 										<Album
 											currentUser={this.props.currentUser}
 											data={album}
@@ -44,7 +43,7 @@ class AlbumsList extends React.Component {
 						</div>
 					);
 				})}
-				</div>
+			</div>
 		);
 	}
 }
