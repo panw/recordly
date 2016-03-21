@@ -9,6 +9,10 @@ class Album extends React.Component {
 	}
 	_handleFavorited(event) {
 		event.stopPropagation();
+		if(!this.props.user) {
+			location.href = '/users/sign_in';
+			return;
+		}
 		let { title, artist, coverUrl, iTunesId } = this.props.data;
 		let album = {
 			iTunes_id: iTunesId,
@@ -25,9 +29,20 @@ class Album extends React.Component {
 			console.log('status', status);
 			console.log('error', error);
 		})
-		.then((response) => {
-			console.log('response', response)
-			// if(response.)
+		.then((album) => {
+			$.ajax({
+				url: '/favorites',
+				method: 'POST',
+				data: { 
+					favorite: {
+						user_id: this.props.user.id,
+						favorited_id: album.id,
+						favorited_type: 'Album'
+					} 
+				}
+			}).then((favorited) => {
+				console.log('favorited', favorited);
+			})
 		});
 	}
 	render() {

@@ -8,6 +8,10 @@ class Track extends React.Component {
 	}
 	_handleFavorited(event) {
 		event.stopPropagation();
+		if(!this.props.user) {
+			location.href = '/users/sign_in';
+			return;
+		}
 		let { iTunesId, title, artist, 
 				coverUrl, previewUrl, iTunesAlbumId, 
 				album, number, genre } = this.props.data;

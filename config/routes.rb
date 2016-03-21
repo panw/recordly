@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :favorites
   resources :tracks
   resources :albums
   devise_for :users

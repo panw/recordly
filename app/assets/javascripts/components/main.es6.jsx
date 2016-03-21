@@ -1,7 +1,8 @@
 class Main extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      user: props.user,
       albums: []
     };
     this.setSearchResults = (results) => this._setSearchResults(results);
@@ -20,7 +21,10 @@ class Main extends React.Component {
         <SearchInput
           setResults={this.setSearchResults}
         />
-        <AlbumsList albums={albums} />
+        <AlbumsList 
+          user={this.props.user}
+          albums={albums} 
+        />
       </div>
     );
   }

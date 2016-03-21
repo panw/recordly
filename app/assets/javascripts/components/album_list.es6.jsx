@@ -12,13 +12,19 @@ class AlbumsList extends React.Component {
 						<div key={i} className="panel panel-default">
 							<div className="panel-heading" role="tab" id="headingOne">
 								<a href="#" className="list-group-item" data-toggle='collapse' data-target={`#${albumId}`} data-parent='#albums-list'>
-									<Album data={album} />
+									<Album 
+										user={this.props.user}
+										data={album} 
+									/>
 								</a>
 							</div>
 							<div id={albumId} className='sublinks collapse'>
 								{_.sortBy(album.tracks, 'number').map((track, i) => {
 									return (
-										<Track key={i} data={track} />	
+										<Track key={i} 
+											user={this.props.user}
+											data={track} 
+										/>	
 									);
 								})}
 							</div>
