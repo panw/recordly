@@ -54,22 +54,24 @@ class Album extends React.Component {
 		let { coverUrl, title, artist } = this.props.data;
 
 		return (
-			<div className="media">
-			  <span className="media-left" href="#">
-			    <img className="media-object" src={coverUrl}/>
-			  </span>
-			  <div className="media-body">
-			    <h4 className="media-heading">
-			    	{title}
-			    	<div className='small'>By {artist}</div>
-			    </h4>
-			    <button className='btn btn-primary'>
-						<i className='fa fa-heart-o'
-			    		onClick={this.handleFavorited}
-			    	/>
-		    	</button>
-			  </div>
-			</div>
+			<span className="list-group-item">
+	    	<div className="media">
+				  <span className="media-left" href="#">
+				    <img className="media-object" src={coverUrl}/>
+				  </span>
+				  <div className="media-body">
+				    <h4 className="media-heading">
+				    	{title}
+				    	<div className='small'>By {artist}</div>
+				    </h4>
+				    <button className='btn btn-primary'>
+							<i className='fa fa-heart-o'
+				    		onClick={this.handleFavorited}
+				    	/>
+			    	</button>
+				  </div>
+				</div>
+		  </span>
 		);
 	}
 }

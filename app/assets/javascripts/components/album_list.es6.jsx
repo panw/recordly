@@ -10,15 +10,18 @@ class AlbumsList extends React.Component {
 					let albumId = _.snakeCase(album.title);
 					return (
 						<div key={i} className="panel panel-default">
-							<div className="panel-heading" role="tab" id="headingOne">
-								<a href="#" className="list-group-item" data-toggle='collapse' data-target={`#${albumId}`} data-parent='#albums-list'>
-									<Album 
-										currentUser={this.props.currentUser}
-										data={album} 
-									/>
-								</a>
+			    		<div className="panel-heading" role="tab">
+								<h4 className="panel-title">
+									<a data-toggle='collapse' data-target={`#${albumId}`} data-parent='#albums-list'>
+										<Album
+											currentUser={this.props.currentUser}
+											data={album} 
+										/>
+									</a>
+								</h4>
 							</div>
-							<div id={albumId} className='sublinks collapse'>
+							<div id={albumId} className="collapse">
+								<div className='list-group'>
 								{_.sortBy(album.tracks, 'number').map((track, i) => {
 									return (
 										<Track key={i} 
@@ -27,11 +30,12 @@ class AlbumsList extends React.Component {
 										/>	
 									);
 								})}
+								</div>
 							</div>
 						</div>
 					);
 				})}
-			</div>
+				</div>
 		);
 	}
 }

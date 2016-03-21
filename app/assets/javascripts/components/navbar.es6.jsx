@@ -12,10 +12,10 @@ class NavBar extends React.Component{
             
             {currentUser ?
               [
-                <li className="nav-item pull-lg-right">
+                <li key={1} className="nav-item pull-lg-right">
                   <a href='/users/sign_out' data-method="DELETE" role="button" className="btn btn-primary-outline">Sign Out</a>
                 </li>, 
-                <li className="nav-item pull-lg-right">
+                <li key={2} className="nav-item pull-lg-right">
                   <a href='/favorites' role="button" className="btn btn-primary-outline">
                     <i className='fa fa-heart-o'/> Favorites
                   </a>

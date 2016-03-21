@@ -73,7 +73,7 @@ class Track extends React.Component {
 	render() {
 		let {title} = this.props.data;
 		return (
-			<span className="list-group-item small">
+			<span href="#" className="list-group-item">
 				<div className="media">
 				  <div className="media-body">
 				    {title}
