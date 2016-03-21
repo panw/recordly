@@ -6,6 +6,8 @@ class Album extends React.Component {
 			favorited: props.favorited ? true : false
 		};
 		this.handleFavorited = (event) => this._handleFavorited(event);
+		this.createFavorite = (album) => this._createFavorite(album);
+		this.deleteFavorite = (album) => this._deleteFavorite(album);
 	}
 	_handleFavorited(event) {
 		event.stopPropagation();
@@ -14,6 +16,7 @@ class Album extends React.Component {
 			return;
 		}
 		let { title, artist, coverUrl, iTunesId } = this.props.data;
+		let { favorited } = this.state;
 		let album = {
 			iTunes_id: iTunesId,
 			title: title,
@@ -30,25 +33,44 @@ class Album extends React.Component {
 			console.log('error', error);
 		})
 		.then((album) => {
-			$.ajax({
-				url: '/favorites',
-				method: 'POST',
-				data: { 
-					favorite: {
-						user_id: this.props.currentUser.id,
-						favorited_id: album.id,
-						favorited_type: 'Album'
-					} 
-				}
+			let promise = favorited ? this.deleteFavorite(album) : this.createFavorite(album);
+
+			promise.done((favorite) => {
+				this.setState({favorited: !favorited});
+			});
+		});
+	}
+	_createFavorite(album) {
+		let promise = $.ajax({
+			url: '/favorites',
+			method: 'POST',
+			data: { 
+				favorite: {
+					user_id: this.props.currentUser.id,
+					favorited_id: album.id,
+					favorited_type: 'Album'
+				} 
+			}
+		})
+		.fail((xhr, status, error) => {
+			console.log('status', status);
+			console.log('error', error);
+		});
+		return promise;
+	}
+	_deleteFavorite(album) {
+		let deletePromise = this.createFavorite(album).done((favorite) => {
+			console.log('deletePromise favorite', favorite)
+			return $.ajax({
+				url: `/favorites/${favorite.id}`,
+				method: 'DELETE'
 			})
 			.fail((xhr, status, error) => {
 				console.log('status', status);
 				console.log('error', error);
-			})
-			.then((favorited) => {
-				this.setState({favorited: !this.state.favorited});
-			})
+			});
 		});
+		return deletePromise;
 	}
 	render() {
 		let { coverUrl, title, artist } = this.props.data;
