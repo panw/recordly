@@ -1,9 +1,9 @@
 
 class Album extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
-			favorited: false
+			favorited: props.favorited ? true : false
 		};
 		this.handleFavorited = (event) => this._handleFavorited(event);
 	}
@@ -46,13 +46,15 @@ class Album extends React.Component {
 				console.log('error', error);
 			})
 			.then((favorited) => {
-				console.log('favorited', favorited);
+				this.setState({favorited: !this.state.favorited});
 			})
 		});
 	}
 	render() {
 		let { coverUrl, title, artist } = this.props.data;
+		let { favorited } = this.state;
 
+		let favoriteIcon = favorited ? 'fa-heart' : 'fa-heart-o';
 		return (
 			<span className="list-group-item">
 	    	<div className="media">
@@ -65,7 +67,7 @@ class Album extends React.Component {
 				    	<div className='small'>By {artist}</div>
 				    </h4>
 				    <button className='btn btn-primary'>
-							<i className='fa fa-heart-o'
+							<i className={`fa ${favoriteIcon}`}
 				    		onClick={this.handleFavorited}
 				    	/>
 			    	</button>

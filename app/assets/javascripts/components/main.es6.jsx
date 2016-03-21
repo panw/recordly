@@ -12,7 +12,6 @@ class Main extends React.Component {
   }
   render() {
     let { albums } = this.state;
-
     return (
       <div>
         <SearchInput
@@ -21,6 +20,7 @@ class Main extends React.Component {
         />
         <AlbumsList 
           currentUser={this.props.currentUser}
+          favorites={this.props.favorites}
           albums={albums} 
         />
       </div>

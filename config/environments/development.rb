@@ -45,5 +45,7 @@ Rails.application.configure do
   #   whitelist: ["useStrict"] # even more options
   # }
 
+  config.react.camelize_props = true #default false
+
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end
