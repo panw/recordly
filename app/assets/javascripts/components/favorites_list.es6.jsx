@@ -18,6 +18,7 @@ class FavoritesList extends React.Component {
 						  		<Album key={i}
 						  			currentUser={this.props.currentUser}
 						  			data={album}
+						  			favorited={true}
 						  		/>
 						  	);
 						  })}
@@ -39,6 +40,7 @@ class FavoritesList extends React.Component {
 						  		<Track key={i}
 						  			currentUser={this.props.currentUser}
 						  			data={track}
+						  			favorited={true}
 						  		/>
 						  	);
 						  })}

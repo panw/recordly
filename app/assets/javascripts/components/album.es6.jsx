@@ -60,7 +60,6 @@ class Album extends React.Component {
 	}
 	_deleteFavorite(album) {
 		let deletePromise = this.createFavorite(album).done((favorite) => {
-			console.log('deletePromise favorite', favorite)
 			return $.ajax({
 				url: `/favorites/${favorite.id}`,
 				method: 'DELETE'
