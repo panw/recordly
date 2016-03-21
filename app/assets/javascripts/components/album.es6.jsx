@@ -9,16 +9,17 @@ class Album extends React.Component {
 	}
 	_handleFavorited(event) {
 		event.stopPropagation();
-		let { title, artist, coverUrl } = this.props.data;
-		let album = { 
+		let { title, artist, coverUrl, iTunesId } = this.props.data;
+		let album = {
+			iTunes_id: iTunesId,
 			title: title,
 			artist: artist,
-			cover_url: coverUrl
+			cover_url: coverUrl	
 		};
 		$.ajax({
 			url:'/albums',
 			method: 'POST',
-			data: album
+			data: { album: album }
 		})
 		.fail((xhr, status, error) => {
 			console.log('status', status);
@@ -43,10 +44,10 @@ class Album extends React.Component {
 			    	<div className='small'>By {artist}</div>
 			    </h4>
 			    <button className='btn btn-primary'>
-									<i className='fa fa-heart-o'
-						    		onClick={this.handleFavorited}
-						    	/>
-					    	</button>
+						<i className='fa fa-heart-o'
+			    		onClick={this.handleFavorited}
+			    	/>
+		    	</button>
 			  </div>
 			</div>
 		);

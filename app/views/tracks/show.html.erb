@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Itunes:</strong>
+  <%= @track.iTunes_id %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @track.title %>
+</p>
+
+<p>
+  <strong>Artist:</strong>
+  <%= @track.artist %>
+</p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @track.number %>
+</p>
+
+<p>
+  <strong>Genre:</strong>
+  <%= @track.genre %>
+</p>
+
+<p>
+  <strong>Album:</strong>
+  <%= @track.album %>
+</p>
+
+<p>
+  <strong>Cover url:</strong>
+  <%= @track.cover_url %>
+</p>
+
+<p>
+  <strong>Preview url:</strong>
+  <%= @track.preview_url %>
+</p>
+
+<%= link_to 'Edit', edit_track_path(@track) %> |
+<%= link_to 'Back', tracks_path %>

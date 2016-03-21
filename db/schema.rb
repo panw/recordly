@@ -11,15 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160320232831) do
+ActiveRecord::Schema.define(version: 20160321005538) do
 
   create_table "albums", force: :cascade do |t|
     t.string   "title"
     t.string   "artist"
     t.string   "cover_url"
+    t.integer  "iTunes_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "tracks", force: :cascade do |t|
+    t.integer  "iTunes_id"
+    t.string   "title"
+    t.string   "artist"
+    t.integer  "number"
+    t.string   "genre"
+    t.integer  "album_id"
+    t.string   "cover_url"
+    t.string   "preview_url"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "tracks", ["album_id"], name: "index_tracks_on_album_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

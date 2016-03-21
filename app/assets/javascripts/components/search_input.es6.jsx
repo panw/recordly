@@ -12,7 +12,7 @@ class SearchInput extends React.Component {
       url: 'https://itunes.apple.com/search',
       data: {
         term: term,
-        limit: 200
+        limit: 10
       },
       dataType: 'jsonp'
     })
@@ -21,16 +21,19 @@ class SearchInput extends React.Component {
     					.reduce((albums, track) => {
     						let currAlbum = albums.length ? albums[albums.length-1] : null;
     						track = {
+                  iTunesId: track.trackId,
     							title: track.trackName, 
 									number: track.trackNumber, 
 									artist: track.artistName,
 									genre: track.primaryGenreName,
 									previewUrl: track.previewUrl,
 									album: track.collectionName,
+                  iTunesAlbumId: track.collectionId,
 									coverUrl: track.artworkUrl100
 								};
     						if(!currAlbum || currAlbum.title !== track.album) {
     							albums.push({
+                    iTunesId: track.iTunesAlbumId,
     								title: track.album,
     								artist: track.artist,
     								coverUrl: track.coverUrl,
@@ -43,7 +46,7 @@ class SearchInput extends React.Component {
     					}, []);
     })
     .done((albums) => {
-      console.log(albums);
+      console.log(JSON.stringify(albums));
       setResults(albums);
     });
   }

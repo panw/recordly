@@ -8,6 +8,7 @@
       <th>Title</th>
       <th>Artist</th>
       <th>Cover url</th>
+      <th>Itunes</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,6 +19,7 @@
         <td><%= album.title %></td>
         <td><%= album.artist %></td>
         <td><%= album.cover_url %></td>
+        <td><%= album.iTunes_id %></td>
         <td><%= link_to 'Show', album %></td>
         <td><%= link_to 'Edit', edit_album_path(album) %></td>
         <td><%= link_to 'Destroy', album, method: :delete, data: { confirm: 'Are you sure?' } %></td>

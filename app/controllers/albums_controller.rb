@@ -24,11 +24,11 @@ class AlbumsController < ApplicationController
   # POST /albums
   # POST /albums.json
   def create
-    @album = Album.new(album_params)
-
+    @album = Album.find_or_initialize_by(album_params)
+    
     respond_to do |format|
       if @album.save
-        format.json { render json: @album }
+        format.json { render json: @album, status: :created }
       else
         format.json { render json: @album.errors, status: :unprocessable_entity }
       end
@@ -67,6 +67,6 @@ class AlbumsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def album_params
-      params.require(:album).permit(:title, :artist, :cover_url)
+      params.require(:album).permit(:title, :artist, :cover_url, :iTunes_id)
     end
 end

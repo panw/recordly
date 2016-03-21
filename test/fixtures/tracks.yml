@@ -1,13 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  iTunes_id: 1
   title: MyString
   artist: MyString
+  number: 1
+  genre: MyString
+  album_id: 
   cover_url: MyString
-  iTunes_id: 1
+  preview_url: MyString
 
 two:
+  iTunes_id: 1
   title: MyString
   artist: MyString
+  number: 1
+  genre: MyString
+  album_id: 
   cover_url: MyString
-  iTunes_id: 1
+  preview_url: MyString
