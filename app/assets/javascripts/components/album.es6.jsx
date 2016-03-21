@@ -9,7 +9,8 @@ class Album extends React.Component {
 	}
 	_handleFavorited(event) {
 		event.stopPropagation();
-		if(!this.props.user) {
+		console.log(this.props.currentUser);
+		if(!this.props.currentUser) {
 			location.href = '/users/sign_in';
 			return;
 		}
@@ -35,7 +36,7 @@ class Album extends React.Component {
 				method: 'POST',
 				data: { 
 					favorite: {
-						user_id: this.props.user.id,
+						user_id: this.props.currentUser.id,
 						favorited_id: album.id,
 						favorited_type: 'Album'
 					} 

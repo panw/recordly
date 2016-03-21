@@ -13,7 +13,7 @@ class AlbumsList extends React.Component {
 							<div className="panel-heading" role="tab" id="headingOne">
 								<a href="#" className="list-group-item" data-toggle='collapse' data-target={`#${albumId}`} data-parent='#albums-list'>
 									<Album 
-										user={this.props.user}
+										currentUser={this.props.currentUser}
 										data={album} 
 									/>
 								</a>
@@ -22,7 +22,7 @@ class AlbumsList extends React.Component {
 								{_.sortBy(album.tracks, 'number').map((track, i) => {
 									return (
 										<Track key={i} 
-											user={this.props.user}
+											currentUser={this.props.currentUser}
 											data={track} 
 										/>	
 									);

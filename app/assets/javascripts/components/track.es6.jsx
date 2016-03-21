@@ -8,7 +8,7 @@ class Track extends React.Component {
 	}
 	_handleFavorited(event) {
 		event.stopPropagation();
-		if(!this.props.user) {
+		if(!this.props.currentUser) {
 			location.href = '/users/sign_in';
 			return;
 		}
@@ -52,9 +52,21 @@ class Track extends React.Component {
 				console.log('status', status);
 				console.log('error', error);
 			})
-			.then((response) => {
-				console.log('response', response)
-				// if(response.)
+			.then((track) => {
+				console.log('track', track)
+				$.ajax({
+					url: '/favorites',
+					method: 'POST',
+					data: {
+						favorite: {
+							user_id: this.props.currentUser.id,
+							favorited_id: track.id,
+							favorited_type: 'Track'
+						} 
+					}
+				}).done((favorited) => {
+					console.log('favorited track', favorited);
+				});
 			});
 		});
 	}

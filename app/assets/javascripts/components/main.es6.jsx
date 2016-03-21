@@ -2,13 +2,10 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: props.user,
+      user: props.currentUser,
       albums: []
     };
     this.setSearchResults = (results) => this._setSearchResults(results);
-  }
-  componentWillMount() {
-
   }
   _setSearchResults(results) {
     this.setState({albums: results});
@@ -19,10 +16,11 @@ class Main extends React.Component {
     return (
       <div>
         <SearchInput
+          currentUser={this.props.currentUser}
           setResults={this.setSearchResults}
         />
         <AlbumsList 
-          user={this.props.user}
+          currentUser={this.props.currentUser}
           albums={albums} 
         />
       </div>
