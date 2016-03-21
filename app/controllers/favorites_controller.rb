@@ -24,10 +24,12 @@ class FavoritesController < ApplicationController
   # POST /favorites
   # POST /favorites.json
   def create
-    @favorite = Favorite.new(favorite_params)
+    @favorite = Favorite.find_or_initialize_by(favorite_params)
 
     respond_to do |format|
-      if @favorite.save
+      if @favorite.persisted?
+        format.json { render json: @favorite, status: :ok }
+      elsif @favorite.save
         format.json { render json: @favorite, status: :created }
       else
         format.json { render json: @favorite.errors, status: :unprocessable_entity }
