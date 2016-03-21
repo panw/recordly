@@ -3,7 +3,7 @@ class Main extends React.Component {
     super(props);
     this.state = {
       user: props.currentUser,
-      albums: []
+      albums: INITDATA
     };
     this.setSearchResults = (results) => this._setSearchResults(results);
   }

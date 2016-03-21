@@ -103,10 +103,13 @@ class Track extends React.Component {
 				<div className="media">
 				  <div className="media-body">
 				    {title}
-				    <i className={`fa ${favoriteIcon}`}
-			    		onClick={this.handleFavorited}
-			    	/>
 				  </div>
+				  <span className="media-right media-middle">				  	
+			  		<i className={`favorite fa ${favoriteIcon}`}
+			    		onClick={this.handleFavorited}
+			    		style={{cursor: 'pointer'}}
+			    	/>
+		    	</span>
 				</div>
 			</span>
 		);

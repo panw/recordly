@@ -79,7 +79,7 @@ class Album extends React.Component {
 		return (
 			<span className="list-group-item">
 	    	<div className="media">
-				  <span className="media-left" href="#">
+				  <span className="media-left">				  	
 				    <img className="media-object" src={coverUrl}/>
 				  </span>
 				  <div className="media-body">
@@ -87,12 +87,13 @@ class Album extends React.Component {
 				    	{title}
 				    	<div className='small'>By {artist}</div>
 				    </h4>
-				    <button className='btn btn-primary'>
-							<i className={`fa ${favoriteIcon}`}
-				    		onClick={this.handleFavorited}
-				    	/>
-			    	</button>
 				  </div>
+				  <span className="media-right media-middle">				  	
+			  		<i className={`favorite fa ${favoriteIcon}`}
+			    		onClick={this.handleFavorited}
+			    		style={{cursor: 'pointer'}}
+			    	/>
+		    	</span>
 				</div>
 		  </span>
 		);
